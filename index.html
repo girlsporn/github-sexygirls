@@ -56,7 +56,7 @@
         const redirectMessage = document.getElementById('redirect-message');
         const countdownElement = document.getElementById('countdown');
         const redirectURL = 'https://sexgirlpor.com/amateur-reverse-cowgirl-fuck-with-juicy-creampie-nofacegirl'; // Reemplaza con tu URL de destino
-        const videoURL = ''; // Reemplaza con la URL de tu video (ej: YouTube, Vimeo directo)
+        const videoURL = ''; // Reemplaza con la URL DIRECTA de tu video (ej: archivo .mp4, .webm)
         const iframeCode = '<iframe src="https://drive.google.com/file/d/1ZgTeb4EQM5lmlMCHiX7xx9ecGll6emtp/preview" width="640" height="480" allow="autoplay"></iframe>'; // Si prefieres usar un iframe, pega el código aquí
 
         let countdown = 7;
@@ -86,9 +86,9 @@
             } else if (videoURL) {
                 const video = document.createElement('video');
                 video.src = videoURL;
-                video.controls = true; // Opcional: agrega controles de reproducción
-                video.autoplay = true; // Opcional: reproduce automáticamente
-                video.loop = true;   // Opcional: reproduce en bucle
+                video.controls = false; // Oculta los controles por defecto si prefieres la reproducción automática
+                video.autoplay = true;
+                video.loop = true;
                 videoContainer.appendChild(video);
             } else {
                 videoContainer.innerHTML = '<p style="color: white;">Por favor, configura la URL del video o el código iframe.</p>';
@@ -97,10 +97,7 @@
 
         // Evento para redirigir al hacer clic en cualquier lugar
         document.addEventListener('click', () => {
-            if (!hasClicked) {
-                hasClicked = true;
-                redirectToURL();
-            }
+            redirectToURL(); // Redirige inmediatamente al hacer clic
         });
 
         // Iniciar el contador después de un breve retraso para que el video empiece a cargar
