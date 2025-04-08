@@ -3,31 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing con Video </title>
+    <title>Landing con Imagen</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
             height: 100%;
             overflow: hidden; /* Evita barras de desplazamiento */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black; /* Fondo de respaldo */
         }
-        #video-container {
+        #image-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: black; /* Fondo de respaldo */
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1; /* Asegura que esté detrás del mensaje (si lo hay) */
+            z-index: 1; /* Asegura que esté detrás del mensaje */
         }
-        #video-container iframe,
-        #video-container video {
+        #image-container img {
             display: block;
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain; /* Ajusta la imagen para que se ajuste sin recortar */
         }
         #redirect-message {
             position: fixed;
@@ -38,72 +41,43 @@
             color: white;
             padding: 10px 20px;
             border-radius: 5px;
-            z-index: 2; /* Asegura que esté encima del video */
+            z-index: 2; /* Asegura que esté encima de la imagen */
+            font-size: 1.2em;
         }
     </style>
 </head>
 <body>
 
-    <div id="video-container">
-        </div>
+    <div id="image-container">
+        <img id="main-image" src="" alt="Imagen de fondo">
+    </div>
 
-    <div id="redirect-message" style="display: none;">
-         <span id="countdown">7</span> segundos...
+    <div id="redirect-message">
+        Si quieres divertirse Click Aquí para ver videos
     </div>
 
     <script>
-        const videoContainer = document.getElementById('video-container');
+        const imageContainer = document.getElementById('image-container');
         const redirectMessage = document.getElementById('redirect-message');
-        const countdownElement = document.getElementById('countdown');
+        const mainImage = document.getElementById('main-image');
         const redirectURL = 'https://sexgirlpor.com/amateur-reverse-cowgirl-fuck-with-juicy-creampie-nofacegirl'; // Reemplaza con tu URL de destino
-        const videoURL = ''; // Reemplaza con la URL DIRECTA de tu video (ej: archivo .mp4, .webm)
-        const iframeCode = '<iframe src="https://drive.google.com/file/d/1ZgTeb4EQM5lmlMCHiX7xx9ecGll6emtp/preview" width="640" height="480" allow="autoplay"></iframe>'; // Si prefieres usar un iframe, pega el código aquí
-
-        let countdown = 7;
-        let countdownInterval;
-        let hasClicked = false;
+        const imageURL = 'URL_DE_TU_IMAGEN_AQUI'; // Reemplaza con la URL de tu imagen
 
         function redirectToURL() {
             window.location.href = redirectURL;
         }
 
-        function startCountdown() {
-            redirectMessage.style.display = 'block';
-            countdownInterval = setInterval(() => {
-                countdown--;
-                countdownElement.textContent = countdown;
-                if (countdown <= 0 && !hasClicked) {
-                    clearInterval(countdownInterval);
-                    redirectToURL();
-                }
-            }, 1000);
-        }
-
-        // Función para insertar el video (prioriza iframe si se proporciona)
-        function insertVideo() {
-            if (iframeCode) {
-                videoContainer.innerHTML = iframeCode;
-            } else if (videoURL) {
-                const video = document.createElement('video');
-                video.src = videoURL;
-                video.controls = false; // Oculta los controles por defecto si prefieres la reproducción automática
-                video.autoplay = true;
-                video.loop = true;
-                videoContainer.appendChild(video);
-            } else {
-                videoContainer.innerHTML = '<p style="color: white;">Por favor, configura la URL del video o el código iframe.</p>';
-            }
-        }
-
         // Evento para redirigir al hacer clic en cualquier lugar
         document.addEventListener('click', () => {
-            redirectToURL(); // Redirige inmediatamente al hacer clic
+            redirectToURL();
         });
 
-        // Iniciar el contador después de un breve retraso para que el video empiece a cargar
         window.onload = () => {
-            insertVideo();
-            setTimeout(startCountdown, 1000); // Espera 1 segundo antes de iniciar el contador
+            if (imageURL) {
+                mainImage.src = imageURL;
+            } else {
+                imageContainer.innerHTML = '<p style="color: white;">Por favor, configura la URL de la imagen.</p>';
+            }
         };
     </script>
 
