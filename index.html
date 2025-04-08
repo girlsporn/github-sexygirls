@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing con Imagen</title>
+    <title>¡Diversión Garantizada!</title>
     <style>
         body, html {
             margin: 0;
@@ -37,12 +37,16 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(255, 165, 0, 0.8); /* Naranja semi-transparente */
             color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 15px 30px;
+            border-radius: 10px;
             z-index: 2; /* Asegura que esté encima de la imagen */
-            font-size: 1.2em;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
+            cursor: pointer; /* Indica que es clickable */
         }
     </style>
 </head>
@@ -53,7 +57,7 @@
     </div>
 
     <div id="redirect-message">
-        Si quieres divertirse Click Aquí para ver videos
+        🔥 ¡HAZ CLIC AQUÍ PARA VER VIDEOS DIVERTIDOS! 🔥
     </div>
 
     <script>
@@ -61,14 +65,14 @@
         const redirectMessage = document.getElementById('redirect-message');
         const mainImage = document.getElementById('main-image');
         const redirectURL = 'https://sexgirlpor.com/amateur-reverse-cowgirl-fuck-with-juicy-creampie-nofacegirl'; // Reemplaza con tu URL de destino
-        const imageURL = 'https://drive.google.com/file/d/10I0oVgo4tMzKgQtF_cvmUVRcakDO3TxW/view?usp=drivesdk'; // Reemplaza con la URL de tu imagen
+        const imageURL = 'https://drive.google.com/file/d/10I0oVgo4tMzKgQtF_cvmUVRcakDO3TxW/view?usp=drivesdk'; // ¡REEMPLAZA CON LA URL DIRECTA DE LA IMAGEN!
 
         function redirectToURL() {
             window.location.href = redirectURL;
         }
 
-        // Evento para redirigir al hacer clic en cualquier lugar
-        document.addEventListener('click', () => {
+        // Evento para redirigir al hacer clic en el mensaje
+        redirectMessage.addEventListener('click', () => {
             redirectToURL();
         });
 
@@ -76,9 +80,14 @@
             if (imageURL) {
                 mainImage.src = imageURL;
             } else {
-                imageContainer.innerHTML = '<p style="color: white;">Por favor, configura la URL de la imagen.</p>';
+                imageContainer.innerHTML = '<p style="color: white;">Por favor, configura la URL DIRECTA de la imagen.</p>';
             }
         };
+
+        // Opcional: También puedes hacer que toda la página sea clickable para redirigir
+        // document.addEventListener('click', () => {
+        //     redirectToURL();
+        // });
     </script>
 
 </body>
