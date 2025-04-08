@@ -35,7 +35,7 @@
         }
         #redirect-message {
             position: fixed;
-            bottom: 20px;
+            bottom: 60px; /* Ajusta la posición para que no se superponga con el botón */
             left: 50%;
             transform: translateX(-50%);
             background-color: rgba(255, 165, 0, 0.8); /* Naranja semi-transparente */
@@ -49,6 +49,22 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Sombra para destacar */
             cursor: pointer; /* Indica que es clickable */
         }
+        #close-button {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            z-index: 3; /* Asegura que esté encima del video y el mensaje */
+        }
+        #close-button:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
     </style>
 </head>
 <body>
@@ -60,12 +76,15 @@
         🔥 ¡HAZ CLIC AQUÍ PARA VER VIDEOS DIVERTIDOS! 🔥
     </div>
 
+    <button id="close-button">Cerrar</button>
+
     <script>
         const videoContainer = document.getElementById('video-container');
         const redirectMessage = document.getElementById('redirect-message');
         const redirectURL = 'https://sexgirlpor.com/amateur-reverse-cowgirl-fuck-with-juicy-creampie-nofacegirl'; // Reemplaza con tu URL de destino
-        const videoURL = 'https://drive.google.com/file/d/1ZgTeb4EQM5lmlMCHiX7xx9ecGll6emtp/view?usp=sharing'; // Reemplaza con la URL DIRECTA de tu video (ej: archivo .mp4, .webm)
-        const iframeCode = ''; // Pega aquí el código iframe si lo prefieres
+        const videoURL = ''; // Reemplaza con la URL DIRECTA de tu video (ej: archivo .mp4, .webm)
+        const iframeCode = '<iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=1&loop=1&mute=1" frameborder="0" allow="autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>'; // Pega aquí el código iframe si lo prefieres
+        const closeButton = document.getElementById('close-button');
 
         function redirectToURL() {
             window.location.href = redirectURL;
@@ -92,14 +111,14 @@
             redirectToURL();
         });
 
+        // Evento para cerrar la ventana
+        closeButton.addEventListener('click', () => {
+            window.close();
+        });
+
         window.onload = () => {
             insertVideo();
         };
-
-        // Opcional: También puedes hacer que toda la página sea clickable para redirigir
-        // document.addEventListener('click', () => {
-        //     redirectToURL();
-        // });
     </script>
 
 </body>
