@@ -1,58 +1,4 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing con Video </title>
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            overflow: hidden; /* Evita barras de desplazamiento */
-        }
-        #video-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: black; /* Fondo de respaldo */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1; /* Asegura que esté detrás del mensaje (si lo hay) */
-        }
-        #video-container iframe,
-        #video-container video {
-            display: block;
-            max-width: 100%;
-            max-height: 100%;
-        }
-        #redirect-message {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            z-index: 2; /* Asegura que esté encima del video */
-        }
-    </style>
-</head>
-<body>
-
-    <div id="video-container">
-        </div>
-
-    <div id="redirect-message" style="display: none;">
-         <span id="countdown">3</span> segundos...
-    </div>
-
-    <script>
-        const videoContainer = document.getElementById('video-container');
+const videoContainer = document.getElementById('video-container');
         const redirectMessage = document.getElementById('redirect-message');
         const countdownElement = document.getElementById('countdown');
         const redirectURL = 'https://sexgirlpor.com/amateur-reverse-cowgirl-fuck-with-juicy-creampie-nofacegirl'; // Reemplaza con tu URL de destino
@@ -62,13 +8,22 @@
         let countdown = 3;
         let countdownInterval;
         let hasClicked = false;
+        let hasBeenAway = false; // Nueva variable para rastrear si la página se abandonó
 
         function redirectToURL() {
             window.location.href = redirectURL;
+            hasClicked = true; // Marca que se ha hecho clic para evitar redirecciones duplicadas
+        }
+
+        function resetCountdown() {
+            countdown = 3;
+            countdownElement.textContent = countdown;
+            redirectMessage.style.display = 'block';
+            clearInterval(countdownInterval);
+            startCountdown();
         }
 
         function startCountdown() {
-            redirectMessage.style.display = 'block';
             countdownInterval = setInterval(() => {
                 countdown--;
                 countdownElement.textContent = countdown;
@@ -100,12 +55,32 @@
             redirectToURL(); // Redirige inmediatamente al hacer clic
         });
 
-        // Iniciar el contador después de un breve retraso para que el video empiece a cargar
-        window.onload = () => {
+        // Iniciar el contador y el video cuando la página se muestra (carga inicial o al volver atrás/adelante)
+        window.addEventListener('pageshow', (event) => {
             insertVideo();
-            setTimeout(startCountdown, 1000); // Espera 1 segundo antes de iniciar el contador
-        };
-    </script>
+            // Si la página se está restaurando desde la caché (al volver atrás), reinicia el contador
+            if (event.persisted || !hasBeenAway) {
+                resetCountdown();
+                hasClicked = false; // Permite la redirección automática nuevamente
+                hasBeenAway = false; // Resetea la bandera de abandono
+            } else {
+                // Si no es una restauración desde caché, el contador ya debería estar corriendo o haber terminado
+                // No es necesario iniciarlo de nuevo inmediatamente después de un abandono no-caché.
+            }
+        });
 
-</body>
-</html>
+        // Detectar cuando la página se oculta (el usuario se va)
+        window.addEventListener('pagehide', () => {
+            hasBeenAway = true;
+            clearInterval(countdownInterval); // Detiene el contador si la página se abandona
+        });
+
+        // Iniciar el contador después de un breve retraso en la carga inicial (por si pageshow se dispara muy pronto)
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                // Solo iniciar el contador si no se ha iniciado ya por pageshow (en la carga inicial)
+                if (!countdownInterval) {
+                    resetCountdown();
+                }
+            }, 500); // Un breve retraso
+        });
